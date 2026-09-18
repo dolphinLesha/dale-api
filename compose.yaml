@@ -1,0 +1,7 @@
+﻿services:
+  mono.api:
+    image: mono.api
+    build:
+      context: .
+      dockerfile: Mono.Api/Dockerfile
+

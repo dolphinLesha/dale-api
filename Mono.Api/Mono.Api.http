@@ -1,0 +1,6 @@
+@Mono.Api_HostAddress = http://localhost:5007
+
+GET {{Mono.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
