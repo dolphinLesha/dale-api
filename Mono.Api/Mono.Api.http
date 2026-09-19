@@ -1,6 +1,6 @@
-@Mono.Api_HostAddress = http://localhost:5007
+@host = http://localhost:5007
 
-GET {{Mono.Api_HostAddress}}/weatherforecast/
+GET {{host}}/api/health/
 Accept: application/json
 
 ###
