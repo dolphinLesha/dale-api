@@ -1,6 +1,33 @@
 @host = http://localhost:5007
 
-GET {{host}}/api/health/
+### Проверка работы API
+GET {{host}}/api/health
 Accept: application/json
 
 ###
+
+### Регистрация нового пользователя
+POST {{host}}/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "qwerty",
+  "firstName": "Admin",
+  "lastName": "Admin"
+}
+
+###
+
+### Повторная регистрация с тем же email
+POST {{host}}/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "ADMIN@example.com",
+  "password": "qwerty",
+  "firstName": "Admin",
+  "lastName": "Admin"
+}
