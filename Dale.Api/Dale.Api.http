@@ -1,33 +1,39 @@
 @host = http://localhost:5007
 
-### Проверка работы API
-GET {{host}}/api/health
-Accept: application/json
-
-###
-
-### Регистрация нового пользователя
+### Регистрация: новый email каждый раз
 POST {{host}}/api/auth/register
 Content-Type: application/json
-Accept: application/json
 
 {
-  "email": "admin@example.com",
-  "password": "qwerty",
-  "firstName": "Admin",
-  "lastName": "Admin"
+  "email": "dale-test-1@example.com",
+  "password": "a-long-test-password",
+  "firstName": "Алексей",
+  "lastName": "Иванов"
 }
 
 ###
 
-### Повторная регистрация с тем же email
-POST {{host}}/api/auth/register
+### Вход
+POST {{host}}/api/auth/login
 Content-Type: application/json
-Accept: application/json
 
 {
-  "email": "ADMIN@example.com",
-  "password": "qwerty",
-  "firstName": "Admin",
-  "lastName": "Admin"
+  "email": "dale-test-1@example.com",
+  "password": "a-long-test-password"
 }
+
+###
+
+### Обновление
+POST {{host}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "ВСТАВИТЬ_ТОКЕН_ТОЛЬКО_В_ЛОКАЛЬНЫЙ_ИГНОРИРУЕМЫЙ_ФАЙЛ"
+}
+
+###
+
+### Проверка access
+GET {{host}}/api/auth/me
+Authorization: Bearer ВСТАВИТЬ_ТОКЕН_ТОЛЬКО_В_ЛОКАЛЬНЫЙ_ИГНОРИРУЕМЫЙ_ФАЙЛ

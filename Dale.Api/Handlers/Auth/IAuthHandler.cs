@@ -4,5 +4,9 @@ namespace Dale.Api.Handlers.Auth;
 
 public interface IAuthHandler
 {
-    RegisterResult HandleRegister(RegisterRequest request);
+    AuthResult HandleRegister(RegisterRequest request);
+
+    AuthResult HandleLogin(LoginRequest request);
+
+    AuthResult HandleRefresh(RefreshRequest request);
 }

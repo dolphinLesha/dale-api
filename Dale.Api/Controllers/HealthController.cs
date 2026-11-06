@@ -12,7 +12,7 @@ public sealed class HealthController : ControllerBase
         var response = new
         {
             status = "ok",
-            service = "mono-api"
+            service = "dale-api"
         };
 
         return Ok(response);

@@ -24,6 +24,5 @@ public sealed class PsqlUserRepository : IUserRepository
     public void Add(User user)
     {
         _dbContext.Users.Add(user);
-        _dbContext.SaveChanges();
     }
 }

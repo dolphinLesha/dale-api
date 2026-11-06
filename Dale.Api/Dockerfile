@@ -1,23 +1,20 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-ARG BUILD_CONFIGURATION=Release
+﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["Mono.Api/Mono.Api.csproj", "Mono.Api/"]
-RUN dotnet restore "Mono.Api/Mono.Api.csproj"
+
+COPY ["Dale.Api/Dale.Api.csproj", "Dale.Api/"]
+RUN dotnet restore "Dale.Api/Dale.Api.csproj"
+
 COPY . .
-WORKDIR "/src/Mono.Api"
-RUN dotnet build "./Mono.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Dale.Api"
+RUN dotnet publish "Dale.Api.csproj" -c Release -o /app/publish --no-restore
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Mono.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Mono.Api.dll"]
+
+COPY --from=build /app/publish .
+
+ENV ASPNETCORE_HTTP_PORTS=8080
+EXPOSE 8080
+
+USER $APP_UID
+ENTRYPOINT ["dotnet", "Dale.Api.dll"]
